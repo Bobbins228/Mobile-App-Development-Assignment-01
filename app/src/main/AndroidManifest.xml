@@ -3,11 +3,22 @@
     package="org.wit.assignment1">
 
     <application
+        android:name="org.wit.assignment1.main.MainApp"
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
         android:label="@string/app_name"
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
-        android:theme="@style/Theme.Assignment1" />
+        android:theme="@style/Theme.Assignment1.">
+        <activity android:name=".activities.MovieActivity">
+        </activity>
+        <activity android:name=".activities.MovieListActivity">
+        <intent-filter>
+            <action android:name="android.intent.action.MAIN" />
 
+            <category android:name="android.intent.category.LAUNCHER" />
+        </intent-filter>
+    </activity>
+
+</application>
 </manifest>
