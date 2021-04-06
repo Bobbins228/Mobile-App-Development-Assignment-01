@@ -26,6 +26,7 @@ class MovieMemStore : MovieStore, AnkoLogger {
         if (foundMovie != null) {
             foundMovie.title = movie.title
             foundMovie.genre = movie.genre
+            foundMovie.image = movie.image
             logAll()
         }
     }

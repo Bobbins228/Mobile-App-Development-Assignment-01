@@ -1,5 +1,6 @@
 package org.wit.assignment1.activities
 
+import android.content.Intent
 import android.os.Bundle
 import android.view.*
 import androidx.appcompat.app.AppCompatActivity
@@ -45,6 +46,11 @@ class MovieListActivity : AppCompatActivity(), MovieListener {
 
     override fun onMovieClick(movie: movieListModel) {
         startActivityForResult(intentFor<MovieActivity>().putExtra("movie_edit", movie), 0)
+    }
+
+    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
+        recyclerView.adapter?.notifyDataSetChanged()
+        super.onActivityResult(requestCode, resultCode, data)
     }
 }
 

@@ -15,8 +15,8 @@ class MainApp : Application(), AnkoLogger {
     override fun onCreate() {
         super.onCreate()
         info("My Movie List started")
-        movies.create(movieListModel(0, "Hot Fuzz","Comedy"))
+       /* movies.create(movieListModel(0, "Hot Fuzz","Comedy"))
         movies.create(movieListModel(1,"John Wick", "Action"))
-        movies.create(movieListModel(2,"Cars", "Family"))
+        movies.create(movieListModel(2,"Cars", "Family")) */
     }
 }
