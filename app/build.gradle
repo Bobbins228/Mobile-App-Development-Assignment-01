@@ -33,6 +33,10 @@ android {
     }
 }
 
+androidExtensions {
+    experimental = true
+}
+
 dependencies {
     implementation group: 'org.jetbrains.anko', name: 'anko-commons', version: '0.10.8'
     implementation 'com.google.android.material:material:1.2.0'

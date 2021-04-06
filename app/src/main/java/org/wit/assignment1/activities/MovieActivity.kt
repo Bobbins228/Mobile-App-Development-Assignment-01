@@ -14,10 +14,11 @@ import org.wit.assignment1.main.MainApp
 
 class MovieActivity : AppCompatActivity(), AnkoLogger {
 
-    var movieList = movieListModel()
+    var movie = movieListModel()
     lateinit var app : MainApp
 
     override fun onCreate(savedInstanceState: Bundle?) {
+        var edit = false
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_movie)
         app = application as MainApp
@@ -25,24 +26,28 @@ class MovieActivity : AppCompatActivity(), AnkoLogger {
         toolbarAdd.title = title
         setSupportActionBar(toolbarAdd)
 
+        if (intent.hasExtra("movie_edit")) {
+            edit = true
+            movie = intent.extras?.getParcelable<movieListModel>("movie_edit")!!
+            movieTitle.setText(movie.title)
+            movieGenre.setText(movie.genre)
+            btnAdd.setText(R.string.save_movie)
+        }
         btnAdd.setOnClickListener() {
-            movieList.title = movieTitle.text.toString()
-            movieList.genre = movieGenre.text.toString()
-            if (movieList.title.isNotEmpty()) {
-                app.movies.add(movieList.copy())
-                app.movies.forEach {info("add Button Pressed: ${it.title}, ${it.genre}")}
-                //=======DELETE ME PLEASE=========
-                toast(app.movies.toString())
-                //================================
-                for (i in app.movies.indices) {
-                    info("Movie[$i]:${app.movies[i]}")
+            movie.title = movieTitle.text.toString()
+            movie.genre = movieGenre.text.toString()
+            if (movie.title.isEmpty()) {
+                toast(R.string.enter_movie_title)
+            } else {
+                if(edit) {
+                    app.movies.update(movie.copy())
+                } else {
+                    app.movies.create(movie.copy())
                 }
+            }
+            info("Add Button Pressed: $movieTitle")
             setResult(AppCompatActivity.RESULT_OK)
             finish()
-        }
-            else {
-                toast ("Please Enter a title")
-            }
         }
     }
 
