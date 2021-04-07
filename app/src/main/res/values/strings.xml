@@ -11,4 +11,6 @@
     <string name="select_movie_image">Select Movie Poster</string>
     <string name="change_movie_image">Change Poster</string>
     <string name="movie_image">movie poster</string>
+    <string name="button_location">Set Location</string>
+    <string name="title_activity_maps">Map</string>
 </resources>

@@ -77,6 +77,18 @@
                     android:textColor="?attr/colorOnPrimary"
 
                     />
+                <Button
+                    android:id="@+id/movieLocation"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="16dp"
+                    android:paddingBottom="8dp"
+                    android:paddingTop="8dp"
+                    android:stateListAnimator="@null"
+                    android:text="@string/button_location"
+                    android:background="?attr/colorSecondary"
+                    android:textColor="?attr/colorOnPrimary"
+                    android:textSize="16sp"/>
 
                 <ImageView
                     android:id="@+id/movieImage"

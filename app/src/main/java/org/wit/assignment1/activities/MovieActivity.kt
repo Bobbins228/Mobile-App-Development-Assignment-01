@@ -11,10 +11,12 @@ import org.jetbrains.anko.AnkoLogger
 import org.jetbrains.anko.info
 import org.jetbrains.anko.toast
 import kotlinx.android.synthetic.main.activity_movie.*
+import org.jetbrains.anko.intentFor
 import org.wit.assignment1.helpers.readImage
 import org.wit.assignment1.helpers.readImageFromPath
 import org.wit.assignment1.helpers.showImagePicker
 import org.wit.assignment1.main.MainApp
+import org.wit.assignment1.models.Location
 
 
 // PROBLEM WHERE THE FIRST MOVIE IN LIST DIES IF I MAKE A NEW MOVIE THEN UPDATE IT LATER
@@ -24,6 +26,8 @@ class MovieActivity : AppCompatActivity(), AnkoLogger {
     val IMAGE_REQUEST = 1
     var movie = movieListModel()
     lateinit var app : MainApp
+    val LOCATION_REQUEST = 2
+    //var location = Location(34.09834, -118.32674, 15f)
 
     override fun onCreate(savedInstanceState: Bundle?) {
         var edit = false
@@ -50,6 +54,17 @@ class MovieActivity : AppCompatActivity(), AnkoLogger {
                 chooseImage.setText(R.string.change_movie_image)
             }
         }
+
+        movieLocation.setOnClickListener {
+            val location = Location(34.09834, -118.32674, 15f)
+            if (movie.zoom != 0f) {
+                location.lat =  movie.lat
+                location.lng = movie.lng
+                location.zoom = movie.zoom
+            }
+            startActivityForResult(intentFor<MapsActivity>().putExtra("location", location), LOCATION_REQUEST)
+        }
+
         btnAdd.setOnClickListener() {
             movie.title = movieTitle.text.toString()
             movie.genre = movieGenre.text.toString()
@@ -92,7 +107,14 @@ class MovieActivity : AppCompatActivity(), AnkoLogger {
                     chooseImage.setText(R.string.change_movie_image)
                 }
             }
+            LOCATION_REQUEST -> {
+                if (data != null) {
+                    val location = data.extras?.getParcelable<Location>("location")!!
+                    movie.lat = location.lat
+                    movie.lng = location.lng
+                    movie.zoom = location.zoom
+                }
+            }
         }
     }
-
 }

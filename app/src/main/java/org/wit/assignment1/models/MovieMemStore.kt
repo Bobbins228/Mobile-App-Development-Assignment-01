@@ -27,6 +27,9 @@ class MovieMemStore : MovieStore, AnkoLogger {
             foundMovie.title = movie.title
             foundMovie.genre = movie.genre
             foundMovie.image = movie.image
+            foundMovie.lat = movie.lat
+            foundMovie.lng = movie.lng
+            foundMovie.zoom = movie.zoom
             logAll()
         }
     }
