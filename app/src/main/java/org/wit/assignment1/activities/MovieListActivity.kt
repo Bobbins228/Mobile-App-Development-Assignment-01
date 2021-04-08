@@ -24,9 +24,10 @@ class MovieListActivity : AppCompatActivity(), MovieListener {
 
         val layoutManager = LinearLayoutManager(this)
         recyclerView.layoutManager = layoutManager
+        loadMovies()
 
         //recyclerView.adapter = MovieAdapter(app.movies)
-        recyclerView.adapter = MovieAdapter(app.movies.findAll(), this)
+        //recyclerView.adapter = MovieAdapter(app.movies.findAll(), this)
 
         toolbar.title = title
         setSupportActionBar(toolbar)
@@ -49,8 +50,18 @@ class MovieListActivity : AppCompatActivity(), MovieListener {
     }
 
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
-        recyclerView.adapter?.notifyDataSetChanged()
+        //recyclerView.adapter?.notifyDataSetChanged()
+        loadMovies()
         super.onActivityResult(requestCode, resultCode, data)
+    }
+
+    private fun loadMovies() {
+        showMovies(app.movies.findAll())
+    }
+
+    fun showMovies (movies: List<movieListModel>) {
+        recyclerView.adapter = MovieAdapter(movies, this)
+        recyclerView.adapter?.notifyDataSetChanged()
     }
 }
 

@@ -34,6 +34,10 @@ class MovieMemStore : MovieStore, AnkoLogger {
         }
     }
 
+    override fun delete(movie: movieListModel) {
+        movies.remove(movie)
+    }
+
     fun logAll() {
         movies.forEach{ info("${it}") }
     }

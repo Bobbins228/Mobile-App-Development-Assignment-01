@@ -27,10 +27,10 @@ class MovieActivity : AppCompatActivity(), AnkoLogger {
     var movie = movieListModel()
     lateinit var app : MainApp
     val LOCATION_REQUEST = 2
+    var edit = false
     //var location = Location(34.09834, -118.32674, 15f)
 
     override fun onCreate(savedInstanceState: Bundle?) {
-        var edit = false
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_movie)
         app = application as MainApp
@@ -85,6 +85,10 @@ class MovieActivity : AppCompatActivity(), AnkoLogger {
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         when (item?.itemId) {
+            R.id.item_delete -> {
+                app.movies.delete(movie)
+                finish()
+            }
             R.id.item_cancel -> {
                 finish()
             }
@@ -94,6 +98,7 @@ class MovieActivity : AppCompatActivity(), AnkoLogger {
 
     override fun onCreateOptionsMenu(menu: Menu?): Boolean {
         menuInflater.inflate(R.menu.menu_movie, menu)
+        if(edit && menu != null) menu.getItem(0).setVisible(true)
         return super.onCreateOptionsMenu(menu)
     }
 

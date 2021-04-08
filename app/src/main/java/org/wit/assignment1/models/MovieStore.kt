@@ -4,4 +4,5 @@ interface MovieStore {
     fun findAll(): List<movieListModel>
     fun create(movie: movieListModel)
     fun update(movie: movieListModel)
+    fun delete(movie: movieListModel)
 }
