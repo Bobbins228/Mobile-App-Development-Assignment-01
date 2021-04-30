@@ -35,5 +35,19 @@
             android:layout_below="@id/movieTitle"
             android:layout_toEndOf="@+id/imageIcon"/>
 
+        <TextView
+            android:id="@+id/movieDirector"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/movieGenre"
+            android:layout_toEndOf="@+id/imageIcon"/>
+
+        <TextView
+            android:id="@+id/movieReleaseDate"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/movieDirector"
+            android:layout_toEndOf="@+id/imageIcon"/>
+
     </RelativeLayout>
 </androidx.cardview.widget.CardView>

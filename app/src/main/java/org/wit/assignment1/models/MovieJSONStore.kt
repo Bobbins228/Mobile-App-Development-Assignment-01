@@ -48,6 +48,10 @@ class MovieJSONStore : MovieStore, AnkoLogger {
         if (foundMovie != null) {
             foundMovie.title = movie.title
             foundMovie.genre = movie.genre
+            foundMovie.director = movie.director
+            foundMovie.day = movie.day
+            foundMovie.month = movie.month
+            foundMovie.year = movie.year
             foundMovie.image = movie.image
             foundMovie.lat = movie.lat
             foundMovie.zoom = movie.zoom

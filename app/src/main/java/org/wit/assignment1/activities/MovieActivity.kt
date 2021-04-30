@@ -1,22 +1,26 @@
 package org.wit.assignment1.activities
 
 import android.content.Intent
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.Menu
 import android.view.MenuItem
-import org.wit.assignment1.R
-import org.wit.assignment1.models.movieListModel
+import android.widget.DatePicker
+import android.widget.Toast
+import androidx.appcompat.app.AppCompatActivity
+import kotlinx.android.synthetic.main.activity_movie.*
 import org.jetbrains.anko.AnkoLogger
 import org.jetbrains.anko.info
-import org.jetbrains.anko.toast
-import kotlinx.android.synthetic.main.activity_movie.*
 import org.jetbrains.anko.intentFor
+import org.jetbrains.anko.toast
+import org.wit.assignment1.R
 import org.wit.assignment1.helpers.readImage
 import org.wit.assignment1.helpers.readImageFromPath
 import org.wit.assignment1.helpers.showImagePicker
 import org.wit.assignment1.main.MainApp
 import org.wit.assignment1.models.Location
+import org.wit.assignment1.models.movieListModel
+import java.text.SimpleDateFormat
+import java.util.*
 
 
 // PROBLEM WHERE THE FIRST MOVIE IN LIST DIES IF I MAKE A NEW MOVIE THEN UPDATE IT LATER
@@ -37,7 +41,17 @@ class MovieActivity : AppCompatActivity(), AnkoLogger {
 
         toolbarAdd.title = title
         setSupportActionBar(toolbarAdd)
+        
 
+        val datePicker = findViewById<DatePicker>(R.id.movieReleaseDate)
+        val today = Calendar.getInstance()
+        datePicker.init(today.get(Calendar.YEAR), today.get(Calendar.MONTH),
+                today.get(Calendar.DAY_OF_MONTH)
+
+        ) { view, year, month, day ->
+            val month = month
+
+        }
         chooseImage.setOnClickListener {
             showImagePicker(this, IMAGE_REQUEST)
         }
@@ -47,6 +61,8 @@ class MovieActivity : AppCompatActivity(), AnkoLogger {
             movie = intent.extras?.getParcelable<movieListModel>("movie_edit")!!
             movieTitle.setText(movie.title)
             movieGenre.setText(movie.genre)
+            movieDirector.setText(movie.director)
+            datePicker.init(movie.year, movie.month - 1, movie.day, null)
             movieImage.setImageBitmap(readImageFromPath(this, movie.image))
             btnAdd.setText(R.string.save_movie)
             movieImage.setImageBitmap(readImageFromPath(this, movie.image))
@@ -68,6 +84,10 @@ class MovieActivity : AppCompatActivity(), AnkoLogger {
         btnAdd.setOnClickListener() {
             movie.title = movieTitle.text.toString()
             movie.genre = movieGenre.text.toString()
+            movie.director = movieDirector.text.toString()
+            movie.year = datePicker.year
+            movie.month = datePicker.month + 1
+            movie.day = datePicker.dayOfMonth
             if (movie.title.isEmpty()) {
                 toast(R.string.enter_movie_title)
             } else {

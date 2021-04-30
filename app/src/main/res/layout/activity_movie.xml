@@ -63,6 +63,25 @@
                     android:maxLines="1"
                     android:padding="8dp"
                     android:textSize="14sp" />
+                <EditText
+                    android:id="@+id/movieDirector"
+                    android:layout_width="match_parent"
+                    android:layout_height="45dp"
+                    android:layout_margin="8dp"
+                    android:autofillHints=""
+                    android:hint="@string/hint_movieDirector"
+                    android:inputType="text"
+                    android:maxLength="25"
+                    android:maxLines="1"
+                    android:padding="8dp"
+                    android:textSize="14sp" />
+
+                <DatePicker
+                    android:id="@+id/movieReleaseDate"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:calendarViewShown="false"
+                    android:datePickerMode="spinner" />
 
                 <Button
                     android:id="@+id/chooseImage"
