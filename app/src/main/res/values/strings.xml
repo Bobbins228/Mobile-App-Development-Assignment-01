@@ -7,6 +7,8 @@
     <string name="menu_addMovie">Add</string>
     <string name="menu_cancelMovie">Cancel</string>
     <string name="enter_movie_title">Please Enter a Movie Title</string>
+    <string name="enter_movie_genre">Please Enter a Movie Genre</string>
+    <string name="enter_movie_poster">Please Add a Poster</string>
     <string name="save_movie">Save Movie</string>
     <string name="button_addImage">Add Poster</string>
     <string name="select_movie_image">Select Movie Poster</string>

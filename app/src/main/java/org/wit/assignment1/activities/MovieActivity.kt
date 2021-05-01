@@ -90,14 +90,18 @@ class MovieActivity : AppCompatActivity(), AnkoLogger {
             movie.day = datePicker.dayOfMonth
             if (movie.title.isEmpty()) {
                 toast(R.string.enter_movie_title)
-            } else {
+            }
+            if (movie.genre.isEmpty()) {
+                toast(R.string.enter_movie_genre)
+            }
+            else {
                 if(edit) {
                     app.movies.update(movie.copy())
                 } else {
                     app.movies.create(movie.copy())
                 }
             }
-            info("Add Button Pressed: $movieTitle")
+            info("Add Button Pressed: $movieTitle $movieGenre $movieDirector")
             setResult(AppCompatActivity.RESULT_OK)
             finish()
         }
