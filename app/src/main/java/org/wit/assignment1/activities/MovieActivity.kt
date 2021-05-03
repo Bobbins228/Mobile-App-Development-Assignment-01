@@ -1,13 +1,15 @@
 package org.wit.assignment1.activities
 
 import android.content.Intent
+import android.graphics.Movie
 import android.os.Bundle
 import android.view.Menu
 import android.view.MenuItem
-import android.widget.DatePicker
-import android.widget.Toast
+import android.widget.*
 import androidx.appcompat.app.AppCompatActivity
+import com.google.firebase.storage.FirebaseStorage
 import kotlinx.android.synthetic.main.activity_movie.*
+import kotlinx.android.synthetic.main.activity_movie_list.*
 import org.jetbrains.anko.AnkoLogger
 import org.jetbrains.anko.info
 import org.jetbrains.anko.intentFor
@@ -23,17 +25,17 @@ import java.text.SimpleDateFormat
 import java.util.*
 
 
-// PROBLEM WHERE THE FIRST MOVIE IN LIST DIES IF I MAKE A NEW MOVIE THEN UPDATE IT LATER
-
 
 class MovieActivity : AppCompatActivity(), AnkoLogger {
+
+    /**
+     * The onCreate method handles both adding new movies to the list and updating them
+     */
     val IMAGE_REQUEST = 1
     var movie = movieListModel()
-    lateinit var app : MainApp
+    lateinit var app: MainApp
     val LOCATION_REQUEST = 2
     var edit = false
-    //var location = Location(34.09834, -118.32674, 15f)
-
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_movie)
@@ -41,12 +43,13 @@ class MovieActivity : AppCompatActivity(), AnkoLogger {
 
         toolbarAdd.title = title
         setSupportActionBar(toolbarAdd)
-        
+
 
         val datePicker = findViewById<DatePicker>(R.id.movieReleaseDate)
         val today = Calendar.getInstance()
-        datePicker.init(today.get(Calendar.YEAR), today.get(Calendar.MONTH),
-                today.get(Calendar.DAY_OF_MONTH)
+        datePicker.init(
+            today.get(Calendar.YEAR), today.get(Calendar.MONTH),
+            today.get(Calendar.DAY_OF_MONTH)
 
         ) { view, year, month, day ->
             val month = month
@@ -74,11 +77,14 @@ class MovieActivity : AppCompatActivity(), AnkoLogger {
         movieLocation.setOnClickListener {
             val location = Location(34.09834, -118.32674, 15f)
             if (movie.zoom != 0f) {
-                location.lat =  movie.lat
+                location.lat = movie.lat
                 location.lng = movie.lng
                 location.zoom = movie.zoom
             }
-            startActivityForResult(intentFor<MapsActivity>().putExtra("location", location), LOCATION_REQUEST)
+            startActivityForResult(
+                intentFor<MapsActivity>().putExtra("location", location),
+                LOCATION_REQUEST
+            )
         }
 
         btnAdd.setOnClickListener() {
@@ -93,9 +99,8 @@ class MovieActivity : AppCompatActivity(), AnkoLogger {
             }
             if (movie.genre.isEmpty()) {
                 toast(R.string.enter_movie_genre)
-            }
-            else {
-                if(edit) {
+            } else {
+                if (edit) {
                     app.movies.update(movie.copy())
                 } else {
                     app.movies.create(movie.copy())
@@ -107,6 +112,9 @@ class MovieActivity : AppCompatActivity(), AnkoLogger {
         }
     }
 
+    /**
+     * This method handles the delete and cancel buttons
+     */
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         when (item?.itemId) {
             R.id.item_delete -> {
@@ -120,12 +128,19 @@ class MovieActivity : AppCompatActivity(), AnkoLogger {
         return super.onOptionsItemSelected(item)
     }
 
+    /**
+     * This method sets the visibility of the movies to true
+     */
     override fun onCreateOptionsMenu(menu: Menu?): Boolean {
         menuInflater.inflate(R.menu.menu_movie, menu)
-        if(edit && menu != null) menu.getItem(0).setVisible(true)
+        if (edit && menu != null) menu.getItem(0).setVisible(true)
         return super.onCreateOptionsMenu(menu)
     }
 
+    /**
+     * When onActivityResult is called the image String gets passes through to an Image
+     * The location data is taken in and added to the movie's location data
+     */
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         super.onActivityResult(requestCode, resultCode, data)
         when (requestCode) {

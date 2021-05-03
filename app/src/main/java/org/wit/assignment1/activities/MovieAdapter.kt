@@ -34,6 +34,9 @@ class MovieAdapter constructor(private var movies: List<movieListModel>,
     override fun getItemCount(): Int = movies.size
 
     class MainHolder constructor(itemView: View) : RecyclerView.ViewHolder(itemView) {
+        /**
+         * The items in this method get passed and displayed on the cards
+         */
 
         @SuppressLint("SetTextI18n")
         fun bind(movie: movieListModel, listener : MovieListener) {

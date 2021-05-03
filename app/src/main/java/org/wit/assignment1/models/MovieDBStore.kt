@@ -8,7 +8,9 @@ import kotlin.math.ln
 class MovieDBStore(context: Context, name: String?, factory: SQLiteDatabase.CursorFactory?, version: Int)
     : SQLiteOpenHelper(context, DATABASE_NAME, factory, DATABASE_VERSION), MovieStore
 {
-
+    /**
+     * creates the database
+     */
     override fun onCreate(db: SQLiteDatabase) {
         val CREATE_MOVIES_TABLE = ("CREATE TABLE " +
                 TABLE_MOVIES + "("
@@ -32,6 +34,9 @@ class MovieDBStore(context: Context, name: String?, factory: SQLiteDatabase.Curs
         onCreate(db)
     }
 
+    /**
+     * The values for each column are declared here
+     */
     companion object {
 
         private val DATABASE_VERSION = 1
@@ -51,6 +56,9 @@ class MovieDBStore(context: Context, name: String?, factory: SQLiteDatabase.Curs
         val COLUMN_ZOOM = "zoom"
     }
 
+    /**
+     * This method gets all of the movies from the table and returns them
+     */
     override fun findAll(): List<movieListModel> {
         val query = "SELECT * FROM $TABLE_MOVIES"
         val db = this.writableDatabase
@@ -81,6 +89,9 @@ class MovieDBStore(context: Context, name: String?, factory: SQLiteDatabase.Curs
         return movies
     }
 
+    /**
+     * The create method adds all of the movie's attributes to the database
+     */
     override fun create(movie: movieListModel) {
         val values = ContentValues()
         values.put(COLUMN_TITLE, movie.title)
@@ -99,7 +110,11 @@ class MovieDBStore(context: Context, name: String?, factory: SQLiteDatabase.Curs
         db.insert(TABLE_MOVIES, null, values)
         db.close()
     }
-   // https://www.javatpoint.com/kotlin-android-sqlite-tutorial <--- The absolute heroes who helped me with the update and delete
+
+    /**
+     * The update function gets the currently inputted items for movie.attribute and updates the table
+     */
+    // https://www.javatpoint.com/kotlin-android-sqlite-tutorial <--- The absolute heroes who helped me with the update and delete
     override fun update(movie: movieListModel) {
         val db = this.writableDatabase
         val values = ContentValues()
@@ -120,6 +135,9 @@ class MovieDBStore(context: Context, name: String?, factory: SQLiteDatabase.Curs
 
     }
 
+    /**
+     * The delete function gets the movie by its id and removes it from the table
+     */
     override fun delete(movie: movieListModel) {
         val db = this.writableDatabase
         val contentValues = ContentValues()

@@ -12,8 +12,10 @@ import org.wit.assignment1.models.MovieStore
 class MainApp : Application(), AnkoLogger {
 
     //val movies = ArrayList<movieListModel>()
-    lateinit var movies: MovieDBStore
+    lateinit var movies: MovieStore
+
     //lateinit var movies: MovieStore
+    //lateinit
 
     override fun onCreate() {
         super.onCreate()
